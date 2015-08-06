@@ -1,18 +1,40 @@
 package com.robin.vishnu.roi.newsnap;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainNewsFeed extends ActionBarActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_news_feed);
+        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
+        List<ContactInfo> list = new ArrayList<ContactInfo>();
+        for (int i = 0; i < 20; i++) {
+            ContactInfo c = new ContactInfo();
+            c.email = "email" + i;
+            c.name = "name" + i;
+            c.surname = "surname" + i;
+            list.add(c);
+        }
+        TestAdapter testAdapter = new TestAdapter(list);
+        recList.setAdapter(testAdapter);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
